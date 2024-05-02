@@ -8,3 +8,4 @@ Built a next js app using next js 13 version and typescript where my tasks will 
 * stack: tsx, daisyui, tailwindcss
 * Learned how to change the daisyUI theme, cause these always refers to device's color mode which becomes dark. 
 * next router/navigation; how it shows realtime data without refreshing ("cache" : 'no-store')
+* learned about new "UUID" npm package that updates the new id's 

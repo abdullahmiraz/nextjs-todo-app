@@ -8,7 +8,7 @@ interface TodoListProps {
 const TodoList: React.FC<TodoListProps> = ({ tasks }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="table">
+      <table className="table border border-black">
         <thead>
           <tr>
             <th>Tasks</th>
