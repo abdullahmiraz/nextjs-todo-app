@@ -13,10 +13,15 @@ const AddTask = () => {
 
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    await addTodo({
-      id: uuidv4(),
-      text: newTaskValue,
-    });
+    // if theres no empty space or just empty task will not be created
+    if (newTaskValue.trim() !== "") {
+      await addTodo({
+        id: uuidv4(),
+        text: newTaskValue,
+      });
+    } else {
+      alert("Empty");
+    }
     setNewTaskValue("");
     setModalOpen(false);
     router.refresh();
@@ -37,6 +42,7 @@ const AddTask = () => {
           <div className="modal-action">
             <input
               value={newTaskValue}
+              name="task"
               onChange={(e) => setNewTaskValue(e.target.value)}
               type="text"
               placeholder="Type here"

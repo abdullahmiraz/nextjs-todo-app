@@ -3,7 +3,7 @@ import { ITask } from "@/types/tasks";
 import React, { FormEventHandler, useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "./Modal";
-import { addTodo, editTodo } from "@/api";
+import { addTodo, deleteTodo, editTodo } from "@/api";
 import router from "next/router";
 import { useRouter } from "next/navigation";
 
@@ -23,8 +23,13 @@ const Task: React.FC<TaskProps> = ({ task }) => {
       id: task.id,
       text: taskToEdit,
     });
-    setTaskToEdit("");
     setOpenModalEdit(false);
+    router.refresh();
+  };
+
+  const handleDeleteTask = async (id: string) => {
+    await deleteTodo(id);
+    setOpenModalDelete(false);
     router.refresh();
   };
   return (
@@ -54,7 +59,28 @@ const Task: React.FC<TaskProps> = ({ task }) => {
             </div>
           </form>
         </Modal>
-        <FiTrash2 cursor={"pointer"} className="text-red-500" size={23} />
+        <FiTrash2
+          onClick={() => setOpenModalDelete(true)}
+          cursor={"pointer"}
+          className="text-red-500"
+          size={23}
+        />
+        <Modal modalOpen={openModalDelete} setModalOpen={setOpenModalDelete}>
+          <div className="flex flex-col  gap-4">
+            <h3 className="text-lg">
+              Are you sure you want to delete this task ?
+            </h3>
+
+            <div className="modal-action">
+              <button
+                onClick={() => handleDeleteTask(task.id)}
+                className="btn bg-red-500 text-white hover:text-black"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </Modal>
       </td>
     </tr>
   );
