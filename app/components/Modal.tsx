@@ -2,19 +2,28 @@ import React from "react";
 
 interface ModalProps {
   modalOpen: boolean;
-  setModalOpen: (open: boolean) => boolean | void;
+  setModalOpen: (open: boolean) => void;
+  children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
+const Modal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, children }) => {
   return (
     <div className={`modal ${modalOpen ? "modal-open" : ""}`} role="dialog">
-      <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">This modal works with a hidden checkbox!</p>
+      <div
+        className="modal-overlay fixed  bg-black bg-opacity-50" // add inset-0 ; closes by bg
+        onClick={() => setModalOpen(false)}
+      ></div>
+
+      <div
+        className={`modal-box bg-white rounded-lg p-6 transform transition-transform ${
+          modalOpen ? "scale-100" : "scale-0"
+        }`}
+      >
+        <p className="py-4">{children}</p>
         <div className="modal-action">
-          <label onClick={() => setModalOpen(false)} className="btn">
+          <button onClick={() => setModalOpen(false)} className="btn">
             Close!
-          </label>
+          </button>
         </div>
       </div>
     </div>
